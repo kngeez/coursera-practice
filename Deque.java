@@ -88,8 +88,36 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     @Override
-    public Iterator iterator() {
-        return null;
+    public Iterator<Item> iterator() {
+        return new Iterator<Item>() {
+            private Node cursor = Deque.this.head;
+            private Node lastReturned = cursor;
+
+            @Override
+            public boolean hasNext() {
+                return cursor.getNext() == null;
+            }
+
+            @Override
+            public Item next() {
+                if (cursor.getNext() == null) {
+                    throw new NoSuchElementException();
+                } else {
+                    lastReturned = cursor;
+                    cursor = cursor.getNext();
+                    return lastReturned.getNext().getValue();
+                }
+            }
+
+            @Override
+            public void remove() {
+                if (lastReturned == null) {
+                    throw new UnsupportedOperationException();
+                } else {
+
+                }
+            }
+        };
     }
 
 

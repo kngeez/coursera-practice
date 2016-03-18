@@ -18,7 +18,7 @@ public class DequeTest {
 
     @Test(expected = NullPointerException.class)
     public void testAddNull() {
-        deq.addFirst(1);
+        deq.addFirst(null);
     }
 
     @Test(expected = NoSuchElementException.class)
