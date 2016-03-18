@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Deque implements Iterable{
+public class Deque<Item> implements Iterable<Item> {
     private int size;
     private Node head;
     private Node tail;
@@ -9,45 +9,53 @@ public class Deque implements Iterable{
     public Deque() {}
 
     public boolean isEmpty() {
-        return true;
+        return size == 0;
     }
 
     public int size() {
         return size;
     }
 
-    public void addFirst(int i) {
-        size++;
+    public void addFirst(Item item) {
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
         if (head == null) {
-            head = new Node(i);
+            head = new Node(item);
             tail = head;
         } else {
-            Node newHead = new Node(i);
+            Node newHead = new Node(item);
             newHead.setNext(head);
             head.setPrevious(newHead);
             head = newHead;
         }
+        size++;
     }
 
-    public void addLast(int i) {
-        size++;
+    public void addLast(Item item) {
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
         if (tail == null) {
-            tail = new Node(i);
+            tail = new Node(item);
             head = tail;
         } else {
-            Node newTail = new Node(i);
+            Node newTail = new Node(item);
             newTail.setPrevious(tail);
             tail.setNext(newTail);
             tail = newTail;
         }
+        size++;
     }
 
-    public int removeFirst() {
+    public Item removeFirst() {
         if (head == null) {
             throw new NoSuchElementException();
         }
 
-        int returnValue = head.getValue();
+        Item returnValue = head.getValue();
         if (head.getNext() == null) {
             head = null;
             tail = null;
@@ -61,12 +69,12 @@ public class Deque implements Iterable{
 
     }
 
-    public int removeLast() {
+    public Item removeLast() {
         if (tail == null) {
             throw new NoSuchElementException();
         }
 
-        int returnValue = tail.getValue();
+        Item returnValue = tail.getValue();
         if (tail.getPrevious() == null) {
             head = null;
             tail = null;
@@ -79,26 +87,39 @@ public class Deque implements Iterable{
         return returnValue;
     }
 
-    public void printFirst() {
-        Node temp = head;
-        while (temp.getNext() != null) {
-            System.out.print(temp.getValue() + ", ");
-            temp = temp.getNext();
-        }
-        System.out.print(temp.getValue());
-    }
-
-    public void printLast() {
-        Node temp = tail;
-        while (temp.getPrevious() != null) {
-            System.out.print(temp.getValue() + ", ");
-            temp = temp.getPrevious();
-        }
-        System.out.print(temp.getValue());
-    }
-
     @Override
     public Iterator iterator() {
         return null;
+    }
+
+
+    private class Node {
+        private Item value;
+        private Node next;
+        private Node previous;
+
+        public Node(Item value) {
+            this.value = value;
+        }
+
+        public Item getValue() {
+            return value;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public Node getPrevious() {
+            return previous;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+        public void setPrevious(Node previous) {
+            this.previous = previous;
+        }
     }
 }

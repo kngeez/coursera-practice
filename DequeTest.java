@@ -1,15 +1,12 @@
 
-
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 
-public class DequeTest{
+public class DequeTest {
     Deque deq;
 
     @Before
@@ -19,10 +16,10 @@ public class DequeTest{
 
     // Corner Cases
 
-//    @Test(expected = NullPointerException.class)
-//    public void testAddNull() {
-//        deq.addFirst(null);
-//    }
+    @Test(expected = NullPointerException.class)
+    public void testAddNull() {
+        deq.addFirst(1);
+    }
 
     @Test(expected = NoSuchElementException.class)
     public void testRemoveFromEmptyDeque() {
@@ -34,6 +31,12 @@ public class DequeTest{
     @Test
     public void testIsEmpty() {
         assertEquals(deq.isEmpty(), true);
+    }
+
+    @Test
+    public void testIsEmptyWhenNot() {
+        deq.addFirst(1);
+        assertEquals(deq.isEmpty(), false);
     }
 
     @Test
@@ -83,21 +86,6 @@ public class DequeTest{
         deq.addFirst(1);
         deq.addFirst(2);
         assertEquals(deq.removeLast(), 1);
-    }
-
-    @Test
-    public void testPrint() {
-        deq.addFirst(1);
-        deq.addFirst(2);
-        deq.addLast(3);
-        deq.addFirst(4);
-        deq.addLast(5);
-        deq.addLast(6);
-        System.out.println("Print First");
-        deq.printFirst();
-        System.out.println();
-        System.out.println("Print Last");
-        deq.printLast();
     }
 }
 
