@@ -91,7 +91,7 @@ public class Deque<Item> implements Iterable<Item> {
     public Iterator<Item> iterator() {
         return new Iterator<Item>() {
             private Node cursor = Deque.this.head;
-            private Node lastReturned = cursor;
+            private Node lastReturned;
 
             @Override
             public boolean hasNext() {
